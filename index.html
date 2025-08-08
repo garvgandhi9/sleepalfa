@@ -276,7 +276,7 @@
         }
 
         .highlight-blue {
-            color: #60a5fa;
+            color: #fff;
             font-size: calc(1rem + 2px);
             font-weight: 500;
         }
@@ -533,7 +533,7 @@
         .benefit-dot {
             width: 24px;
             height: 24px;
-            background-color: #2e8b92;
+            background-color: #3b82f6;
             border-radius: 50%;
             cursor: pointer;
             transition: transform 0.3s ease, background-color 0.3s ease;
@@ -574,7 +574,7 @@
         }
         .central-description {
             font-family: Arial, sans-serif;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             line-height: 1.6;
             color: #d1d5db;
             transition: opacity 0.5s ease-in-out;
@@ -583,25 +583,25 @@
         .benefit-label {
             position: absolute;
             color: #fff;
-            font-size: 0.8rem;
-            font-weight: bold;
+            font-size: calc(0.8rem + 4px);
+            font-weight: 500;
             white-space: nowrap;
             padding: 0.5rem 0.75rem;
             border-radius: 8px;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
             transform: translate(-50%, -50%);
             z-index: 2;
             background-color: transparent;
-            border: 1px solid transparent;
+            border: none;
             max-width: 140px;
             text-align: center;
+            pointer-events: none;
         }
-        .benefit-label.active { /* Corrected selector */
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 3px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        .benefit-label.active {
+            color: #3b82f6;
+            background: transparent;
+            border: none;
+            box-shadow: none;
         }
 
 
@@ -905,13 +905,13 @@
     
     <!-- Pinned Button -->
     <a href="https://sleepalfa.typeform.com/sleepscreen" target="_blank" rel="noopener noreferrer" class="pinned-join-button">
-        Join the movement
+        Assess your sleep
     </a>
 
     <section class="info-section content-section reveal" data-bg="bg-for-info-section">
         <div class="info-grid">
             <div class="info-content">
-                <h2 class="info-heading">Your wake-up call.</h2>
+                <h2 class="info-heading">Your<br>wake-up call.</h2>
                 <p class="info-text">
                     <span class="highlight-blue">61% of Indians sacrifice sleep daily</span>, you deserve better.
                 </p>
@@ -926,7 +926,7 @@
     <section class="epidemic-section-new content-section reveal" data-bg="bg-for-epidemic-section-new">
         <div class="epidemic-grid">
             <div class="epidemic-text-content">
-                <h2 class="epidemic-heading">Sleep deprivation is an epidemic</h2>
+                <h2 class="epidemic-heading">Sleep deprivation<br>is an epidemic</h2>
                 <p class="epidemic-subheading"><a href="https://sleepalfa.typeform.com/sleepscreen" style="color:inherit;text-decoration:underline;">What's disrupting your</a> <span style="color:#b6c6f5;font-weight:600;">Sleep</span>?</p>
                 <div class="epidemic-nav-dots" style="margin-top: 2.5em; display: flex; gap: 12px; justify-content: flex-end; align-items: center; margin-right: 2.5em;"></div>
             </div>
@@ -959,7 +959,7 @@
     </section>
 
     <section class="process-section content-section reveal" data-bg="bg-for-process-section">
-        <h2 class="process-title">Discover Integrative Value based Sleepcare</h2>
+        <h2 class="process-title">Discover Value based<br>Integrative Sleepcare</h2>
         <img src="Process_Web.png" alt="SleepAlfa Process Page" class="process-image">
     </section>
 
@@ -998,7 +998,7 @@
             </div>
             
             <p class="cta-call-to-action">
-                Join us in building a well-rested, more productive, and thriving India. Be a part of the movement to create SleepAlfas for a healthier tomorrow
+                Join us in building a well-rested, more productive, and thriving India.<br> Be a part of the movement to create SleepAlfas for a healthier tomorrow
             </p>
         </div>
     </section>
@@ -1262,7 +1262,7 @@
                 { label: 'Hormonal & Metabolic Regulation', description: 'Sleep balances insulin, cortisol, and hunger hormones.' }
             ];
 
-            // --- Superpower Section: Cycling Images ---
+            // --- Superpower Section: Associate Images with Dots ---
             const superpowerImages = [
                 '01-Brain.png',
                 '02-Physical.png',
@@ -1271,15 +1271,7 @@
                 '05-Performance.png',
                 '06-Harmonal-Balance.png'
             ];
-            let superpowerImgIndex = 0;
             const superpowerImgEl = document.querySelector('.central-photo');
-            // Only set up one interval for image cycling
-            if (superpowerImgEl) {
-                setInterval(() => {
-                    superpowerImgIndex = (superpowerImgIndex + 1) % superpowerImages.length;
-                    superpowerImgEl.src = superpowerImages[superpowerImgIndex];
-                }, 3000);
-            }
 
             const interactiveArea = document.querySelector('.superpower-interactive-area');
             const centralDescriptionEl = document.querySelector('.central-description');
@@ -1288,7 +1280,9 @@
             let currentBenefitIndex = 0;
             let superpowerInterval;
 
-            const radiusPercent = 42; // Slightly larger to account for border thickness 
+            // Pin dots and labels outside the dashed circle, labels never move
+            const radiusPercent = 49; // Dots on the edge
+            const labelRadius = 67; // Labels always further out, fixed
             const angleStep = 360 / benefits.length;
 
             function updateSuperpowerContent(index, isManualClick = false) {
@@ -1296,7 +1290,12 @@
                     clearInterval(superpowerInterval);
                 }
                 currentBenefitIndex = index;
-                
+
+                // Update central image to match the selected benefit
+                if (superpowerImgEl) {
+                    superpowerImgEl.src = superpowerImages[index];
+                }
+
                 centralDescriptionEl.style.opacity = 0;
                 setTimeout(() => {
                     centralDescriptionEl.textContent = benefits[index].description;
@@ -1314,7 +1313,7 @@
                    startSuperpowerAnimation(); // Restart animation after manual click
                 }
             }
-            
+
             function startSuperpowerAnimation() {
                 superpowerInterval = setInterval(() => {
                     const nextIndex = (currentBenefitIndex + 1) % benefits.length;
@@ -1327,7 +1326,7 @@
                     const angle = angleStep * index - 90;
                     const angleRad = angle * Math.PI / 180;
 
-                    // Position for the dot exactly on the circle edge
+                    // Dot on the edge
                     const x = 50 + radiusPercent * Math.cos(angleRad);
                     const y = 50 + radiusPercent * Math.sin(angleRad);
 
@@ -1339,19 +1338,57 @@
                     const dot = document.createElement('div');
                     dot.className = 'benefit-dot';
                     point.appendChild(dot);
-                    
-                    // Create the label positioned next to the dot
+
+                    // Label always pinned outside the circle
                     const label = document.createElement('div');
                     label.className = 'benefit-label';
-                    label.textContent = benefit.label;
-                    
-                    // Position label next to the dot (slightly further out)
-                    const labelRadius = radiusPercent + 15; // 15% further out than the dots
-                    const labelX = 50 + labelRadius * Math.cos(angleRad);
-                    const labelY = 50 + labelRadius * Math.sin(angleRad);
-                    label.style.left = `${labelX}%`;
-                    label.style.top = `${labelY}%`;
-                    
+                    // For 'Chronic Disease Prevention', break into two lines
+                    if (benefit.label === 'Chronic Disease Prevention') {
+                        label.innerHTML = 'Chronic Disease<br>Prevention';
+                    } else if (benefit.label === 'Performance & Productivity') {
+                        label.innerHTML = 'Performance &<br>Productivity';
+                    } else if (benefit.label === 'Hormonal & Metabolic Regulation') {
+                        label.innerHTML = 'Hormonal &<br>Metabolic Regulation';
+                    } else {
+                        label.textContent = benefit.label;
+                    }
+                    // For 'Hormonal & Metabolic Regulation', push label further out
+                    let customLabelRadius = labelRadius;
+                    if (index === 5) {
+                        customLabelRadius = labelRadius + 18; // push further out
+                    }
+                    let labelX = 50 + customLabelRadius * Math.cos(angleRad);
+                    let labelY = 50 + customLabelRadius * Math.sin(angleRad);
+                    // Move 'Brain & Cognitive Function' 10px left and 15px down
+                    if (index === 0) {
+                        label.style.left = `calc(${labelX}% - 30px)`;
+                        label.style.top = `calc(${labelY}% + 45px)`;
+                    } else if (index === 1) {
+                        // Move 'Physical Recovery' 10px down and 10px left
+                        label.style.left = `calc(${labelX}% - 10px)`;
+                        label.style.top = `calc(${labelY}% + 10px)`;
+                    } else if (index === 2) {
+                        // Move 'Chronic Disease Prevention' up by 10px
+                        label.style.left = `${labelX}%`;
+                        label.style.top = `calc(${labelY}% - 10px)`;
+                    } else if (index === 3) {
+                        // Move 'Longevity & Aging' up by 15px and left by 5px
+                        label.style.left = `calc(${labelX}% - 7px)`;
+                        label.style.top = `calc(${labelY}% - 45px)`;
+                    } else if (index === 4) {
+                        // Move 'Performance & Productivity' up by 10px
+                        label.style.left = `${labelX}%`;
+                        label.style.top = `calc(${labelY}% - 35px)`;
+                    } else if (index === 5) {
+                        // Centrally align, bring down by 30px, move right by 20px
+                        label.style.left = `calc(${labelX}% + 40px)`;
+                        label.style.top = `calc(${labelY}% + 50px)`;
+                        label.style.textAlign = 'center';
+                    } else {
+                        label.style.left = `${labelX}%`;
+                        label.style.top = `${labelY}%`;
+                    }
+
                     interactiveArea.appendChild(point);
                     interactiveArea.appendChild(label);
 
@@ -1409,9 +1446,6 @@
     .desc-lower {
         top: 455px !important;
         position: absolute !important;
-    }
-    .benefit-label.active {
-        margin-top: 2.5em;
     }
     </style>
 
