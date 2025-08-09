@@ -183,6 +183,8 @@
             margin: 0 auto;
             padding: 8rem 2rem;
             min-height: 400px;
+            margin-bottom: 0;
+            padding-bottom: 1rem;
         }
         
         .info-content {
@@ -235,7 +237,8 @@
             display: flex;
             align-items: center;
             min-height: 100vh;
-            padding: 4rem 2rem;
+            padding: 2rem 2rem 4rem 2rem; /* Reduced top padding */
+            padding-top: 0.5rem;
         }
 
         .epidemic-grid {
@@ -298,36 +301,55 @@
         }
 
         .epidemic-img-top {
-            position: absolute;
-            width: 25%; /* Use percentage for scaling */
-            top: 25%;
-            left: 35%;
+            position: static;
+            width: 18vw;
+            min-width: 60px;
+            max-width: 120px;
             z-index: 2;
             transition: opacity 0.6s ease;
+            margin-bottom: 0.5em;
+        }
+
+        .epidemic-caption-group {
+            position: absolute;
+            left: 70%;
+            top: calc(38% - 100px); /* Adjusted position */
+            transform: translateX(-50%);
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            pointer-events: none;
+        }
+
+        .epidemic-caption-texts {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 70%;red
+            max-width: 400px;
         }
 
         .epidemic-img-caption {
-            position: absolute;
-            z-index: 3;
+            margin-left: 0;
             text-align: left;
-            width: 80%;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 100%;
         }
         
         .epidemic-img-caption.title {
-            top: 58%;
+            margin-top: 0;
+            margin-bottom: 0.2em;
             font-family:'Bricolage Grotesque',sans-serif;
-            font-size: clamp(1.8rem, 4vw, 2.1rem);
+            font-size: clamp(0.8rem, 1.2vw, 1.1rem);
             font-weight:500;
             line-height:1.2;
             color:#b6c6f5;
         }
         
         .epidemic-img-caption.description {
-            top: 68%;
+            margin-top: 0;
             font-family:'Inter',sans-serif;
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            font-size: clamp(0.6rem, 0.9vw, 0.8rem);
             line-height:1.4;
             color:#b6c6f5;
         }
@@ -380,10 +402,20 @@
         }
         .superpower-interactive-area {
             position: relative;
-            width: 100%;
-            max-width: 350px;
+            width: 350px;
+            height: 350px;
+            max-width: none;
             aspect-ratio: 1 / 1;
-            margin: 2rem 0;
+            margin: 2rem auto;
+        }
+        @media (max-width: 768px) {
+          .superpower-interactive-area {
+            width: 100vw !important;
+            height: 100vw !important;
+            max-width: 100vw !important;
+            min-width: 0 !important;
+            margin: 0 auto !important;
+          }
         }
         .dashed-circle {
             position: absolute;
@@ -533,6 +565,12 @@
             margin-bottom: 3rem;
             width: 100%;
         }
+        @media (max-width: 768px) {
+          .visual-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1.2rem !important;
+          }
+        }
 
         .visual-item {
             display: flex;
@@ -635,7 +673,20 @@
                 text-align: center; /* Center text by default on mobile */
             }
             .section {
-                 padding: 4rem 1rem; /* Consistent padding for mobile */
+                padding: 1.5rem 0.5rem !important;
+            }
+            .content-section {
+                padding-top: 1.5rem !important;
+                padding-bottom: 1.5rem !important;
+            }
+            .hero-section,
+            .info-section,
+            .epidemic-section-new,
+            .superpower-section,
+            .process-section,
+            .cta-section {
+                margin-bottom: 1.5rem !important;
+                margin-top: 0 !important;
             }
             
             /* --- Hero Section --- */
@@ -648,8 +699,10 @@
             /* --- Info Section --- */
             .info-section {
                 flex-direction: column; /* Stack vertically */
-                padding: 4rem 1.5rem;
+                padding: 1.5rem 0.5rem 1.5rem 0.5rem;
                 text-align: center;
+                margin-bottom: 0 !important;
+                padding-bottom: 0.5rem !important;
             }
             .info-content, .info-image {
                 flex-basis: 100%; /* Take full width */
@@ -661,7 +714,8 @@
             .info-image {
                 order: 2; /* Image comes after text on mobile */
                 max-width: 300px;
-                margin-bottom: 2rem;
+                margin-bottom: 0.5rem;
+                margin-top: 0.5rem;
             }
             .info-content .info-text {
                 max-width: 100%; /* Allow text to use full width */
@@ -670,6 +724,7 @@
             /* --- Epidemic Section --- */
             .epidemic-section-new {
                 padding: 4rem 1.5rem;
+                padding-top: 0.2rem !important;
             }
             .epidemic-grid {
                 flex-direction: column; /* Stack vertically */
@@ -685,22 +740,31 @@
             }
             
             /* Repositioning the captions inside the head illustration for mobile */
-            .epidemic-img-top {
-                width: 80px !important;
-                left: unset !important;
-                right: +140px !important;
-                top: 55px !important;
+            .epidemic-img-caption {
+                width: 100% !important;
+                min-width: 0 !important;
+                max-width: 100% !important;
+                text-align: center !important;
+                left: 0 !important;
             }
             .epidemic-img-caption.title {
-                top: 45%;
-                left: 280px !important;
-                font-size: 0.9rem !important;
+                margin-top: 2vw !important;
+                margin-bottom: 0.2em !important;
+                font-size: clamp(0.7rem, 1.5vw, 0.9rem) !important;
             }
             .epidemic-img-caption.description {
-                top: 50%;
-                left: 260px !important;
-                font-size: 0.6rem !important;
-                padding: 0 5% !important;
+                margin-top: 0 !important;
+                font-size: clamp(0.5rem, 1vw, 0.7rem) !important;
+                padding: 0 2vw !important;
+                text-align: center !important;
+            }
+                top: 28vw !important;
+                font-size: clamp(0.7rem, 1.5vw, 0.9rem) !important;
+            }
+            .epidemic-img-caption.description {
+                top: 36vw !important;
+                font-size: clamp(0.5rem, 1vw, 0.7rem) !important;
+                padding: 0 2vw !important;
                 text-align: left !important;
             }
             .epidemic-subheading {
@@ -729,7 +793,7 @@
             }
             .visual-grid {
                 /* The auto-fit rule already handles this, but we can be explicit */
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr) !important;
                 gap: 2rem;
             }
 
@@ -797,9 +861,13 @@
             </div>
             <div class="head-container">
                 <img src="Human-Head-Illustration.png" alt="Brain silhouette" class="brain-silhouette">
-                <img src="001.png" alt="Sleep disorder illustration" class="epidemic-img-top">
-                <div class="epidemic-img-caption title">Sleep Apnea</div>
-                <div class="epidemic-img-caption description" id="epidemic-desc">You stop breathing during sleep, sometimes hundreds of times a night or you may snore loudly, gasp for air, or wake up tired, even after 8 hours of sleep.</div>
+                <div class="epidemic-caption-group">
+                    <img src="001.png" alt="Sleep disorder illustration" class="epidemic-img-top">
+                    <div class="epidemic-caption-texts">
+                        <div class="epidemic-img-caption title">Sleep Apnea</div>
+                        <div class="epidemic-img-caption description" id="epidemic-desc">You stop breathing during sleep, sometimes hundreds of times a night or you may snore loudly, gasp for air, or wake up tired, even after 8 hours of sleep.</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -913,11 +981,7 @@
         // Helper to break lines for any element
         function applyLineBreaksToDescEl(descEl, text) {
             if (!descEl) return;
-            if (window.innerWidth <= 768) {
-                descEl.innerHTML = breakDescriptionLines(text);
-            } else {
-                descEl.innerHTML = text;
-            }
+            descEl.innerHTML = breakDescriptionLines(text);
         }
         // NOTE: The JavaScript is largely unchanged, as the CSS refactoring handles the visual responsiveness.
         // The core logic for animations and content swapping remains the same.
