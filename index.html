@@ -170,6 +170,39 @@
             color: #142737;
         }
 
+        /* WhatsApp floating button */
+        .whatsapp-float {
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            width: 60px !important;
+            height: 60px !important;
+            background-color: #25D366 !important;
+            border-radius: 50% !important;
+            text-align: center !important;
+            font-size: 24px !important;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.5) !important;
+            z-index: 99999 !important;
+            transition: all 0.3s ease !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-decoration: none !important;
+            color: white !important;
+            border: 3px solid white !important;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-float img {
+            width: 28px;
+            height: 28px;
+        }
+
         /* * ======================================== * */
         /* * INFO SECTION               * */
         /* * ======================================== * */
@@ -396,100 +429,184 @@
             margin-bottom: 3rem;
             max-width: 60ch;
         }
-        .superpower-interactive-area {
-            position: relative;
-            width: 350px;
-            height: 350px;
-            max-width: none;
-            aspect-ratio: 1 / 1;
+        
+        /* Flip Card Grid Layout */
+        .superpower-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            max-width: 800px;
+            width: 100%;
+            aspect-ratio: 3/2;
+            gap: 2px;
             margin: 2rem auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background-color: transparent;
         }
-        @media (max-width: 768px) {
-          .superpower-interactive-area {
-            width: 100vw !important;
-            height: 100vw !important;
-            max-width: 100vw !important;
-            min-width: 0 !important;
-            margin: 0 auto !important;
-          }
+        
+        .superpower-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
         }
-        .dashed-circle {
+        
+        .large-card {
+            grid-column: 1;
+            grid-row: 1 / 3;
+        }
+        
+        /* Flip Card Styles */
+        .flip-card {
+            perspective: 1000px;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner,
+        .flip-card.touch-active .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
             position: absolute;
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, #3b82f6, #1d4ed8, #1e40af, #1e3a8a, #1e3a8a, #1d4ed8, #3b82f6);
-            padding: 2px;
-        }
-        .dashed-circle::before {
-            content: '';
-            position: absolute;
-            inset: 2px;
-            background: #0d1117;
-            border-radius: 50%;
-        }
-        .benefit-point {
-            position: absolute;
-            transform: translate(-50%, -50%);
-        }
-        .benefit-dot {
-            width: 24px;
-            height: 24px;
-            background-color: #3b82f6;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-        .benefit-point.active .benefit-dot {
-            transform: scale(1.5); /* Slightly larger for better visibility */
-            background-color: #ffffff;
-        }
-        .central-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 65%;
-            aspect-ratio: 1 / 1;
-            z-index: 1;
-            border-radius: 50%;
+            backface-visibility: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 1rem;
+            padding: 1.5rem;
         }
-        .central-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 12px;
+        
+        .flip-card-front {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6, #1d4ed8);
+            color: white;
+        }
+        
+        .flip-card-back {
+            background: linear-gradient(135deg, #1e40af, #2563eb, #3b82f6);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        
+        .card-image {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
             margin-bottom: 1rem;
-            object-fit:contain;
+            filter: brightness(0) invert(1);
         }
-        .central-description {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #d1d5db;
-            transition: opacity 0.5s ease-in-out;
-            text-align: center;
+        
+        .large-card .card-image {
+            width: 80px;
+            height: 80px;
         }
-        .benefit-label {
-            position: absolute;
-            color: #fff;
+        
+        .card-title {
+            font-family: 'Bricolage Grotesque', sans-serif;
             font-size: 1rem;
-            font-weight: 500;
-            white-space: nowrap;
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
-            transition: color 0.3s ease;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            max-width: 140px;
-            text-align: center;
-            pointer-events: none;
+            font-weight: 600;
+            line-height: 1.3;
+            margin: 0;
         }
-        .benefit-label.active {
-            color: #3b82f6;
+        
+        .large-card .card-title {
+            font-size: 1.2rem;
+        }
+        
+        .card-description {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+            text-align: center;
+        }
+        
+        .large-card .card-description {
+            font-size: 1rem;
+        }
+
+        /* Mobile-specific superpower layout */
+        @media (max-width: 768px) {
+            .superpower-section {
+                padding: 2rem 1rem;
+                min-height: auto;
+            }
+            
+            .superpower-title {
+                font-size: clamp(2rem, 5vw, 2.5rem);
+                margin-bottom: 0.5rem;
+            }
+            
+            .superpower-subtitle {
+                font-size: clamp(1rem, 2.5vw, 1.2rem);
+                margin-bottom: 2rem;
+            }
+            
+            .superpower-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                max-width: 100%;
+                aspect-ratio: auto;
+                height: auto;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                background-color: transparent;
+            }
+            
+            .superpower-card {
+                height: 120px;
+                min-height: 120px;
+            }
+            
+            .large-card {
+                height: 140px;
+                min-height: 140px;
+            }
+            
+            .flip-card-front, .flip-card-back {
+                padding: 1rem;
+            }
+            
+            .card-image {
+                width: 40px;
+                height: 40px;
+                margin-bottom: 0.5rem;
+            }
+            
+            .large-card .card-image {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .card-title {
+                font-size: 0.85rem;
+                line-height: 1.2;
+            }
+            
+            .large-card .card-title {
+                font-size: 0.95rem;
+            }
+            
+            .card-description {
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+            
+            .large-card .card-description {
+                font-size: 0.8rem;
+            }
         }
 
         /* * ======================================== * */
@@ -564,7 +681,7 @@
         @media (max-width: 768px) {
           .visual-grid {
             grid-template-columns: 1fr !important;
-            gap: 1.2rem !important;
+            gap: 1.5rem !important;
           }
         }
 
@@ -726,7 +843,7 @@
                 flex-direction: column; /* Stack vertically */
                 gap: 3rem;
             }
-            .epidemic-text-content, .head-container {
+            .epidemic-text-content {
                 flex-basis: 100%;
                 width: 100%;
                 text-align: center;
@@ -735,29 +852,74 @@
                 justify-content: center; /* Center the dots */
             }
             
-            /* Repositioning the captions inside the head illustration for mobile */
-            .epidemic-img-caption {
-                width: 100% !important;
-                min-width: 0 !important;
-                max-width: 100% !important;
-                text-align: center !important;
-                left: 0 !important;
+            /* Specific changes for Epidemic section to place content inside brain silhouette */
+            .head-container {
+                flex-basis: 100%; /* Take full width */
+                width: 100%;
+                max-width: 400px; /* Limit size of the container for the illustration */
+                margin: 0 auto; /* Center the container */
+                position: relative; /* Ensure children are positioned relative to this */
+                aspect-ratio: 1 / 1; /* Maintain aspect ratio */
+                display: flex; /* Use flex to align items if needed */
+                align-items: center; /* Center items vertically */
+                justify-content: center; /* Center items horizontally */
             }
+
+            .brain-silhouette {
+                position: absolute; /* Position absolutely within head-container */
+                width: 90%; /* Scale to fit within container */
+                height: 90%; /* Scale to fit within container */
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); /* Center the brain silhouette */
+                object-fit: contain;
+                z-index: 1; /* Ensure brain is behind caption group */
+            }
+
+            .epidemic-caption-group {
+                order: initial; /* Reset order from previous iteration */
+                position: absolute; /* Position absolutely to overlay brain */
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); /* Center the caption group */
+                width: 70%; /* Adjust width to fit inside brain */
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Center content horizontally within the group */
+                pointer-events: none; /* Allow clicks to pass through to dots */
+                z-index: 2; /* Ensure caption group is above brain */
+            }
+
+            .epidemic-img-top {
+                position: static; /* Reset to static within caption group */
+                width: 60px; /* Adjust size of small icon */
+                height: auto;
+                margin: 0 auto 0.5em auto; /* Center and add space below */
+                display: block;
+            }
+
+            .epidemic-caption-texts {
+                width: 100%; /* Take full width of parent group */
+                align-items: center; /* Center title and description */
+            }
+
             .epidemic-img-caption.title {
-                margin-top: 2vw !important;
+                text-align: center;
+                margin-top: 0.5em !important; /* Adjust spacing */
                 margin-bottom: 0.2em !important;
-                font-size: clamp(0.7rem, 1.5vw, 0.9rem) !important;
+                font-size: clamp(0.9rem, 2.5vw, 1.1rem) !important; /* Adjust font size */
             }
             .epidemic-img-caption.description {
-                top: 36vw !important;
-                font-size: clamp(0.5rem, 1vw, 0.7rem) !important;
-                padding: 0 2vw !important;
-                text-align: left !important;
-            }
-            .epidemic-subheading {
-                 font-size: clamp(1.3rem, 5vw, 1.8rem);
+                text-align: center !important; /* Center the description text */
+                font-size: clamp(0.7rem, 1.8vw, 0.9rem) !important; /* Adjust font size */
+                line-height: 1.4;
+                padding: 0 5px; /* Small padding to prevent text touching edges */
             }
             
+            .epidemic-nav-dots {
+                margin-top: 2.5em; /* Keep dots below the head container */
+            }
+
             /* --- Superpower Section --- */
             .superpower-interactive-area {
                 max-width: 80vw;
@@ -769,7 +931,6 @@
             .benefit-label {
                 font-size: 0.8rem; /* Smaller font to prevent overlap */
             }
-            /* JS positioning might still need tweaking, but this makes it usable */
             .central-description {
                 font-size: 1rem;
             }
@@ -779,9 +940,8 @@
                 padding: 2.5rem 1.5rem; /* Reduce padding on mobile */
             }
             .visual-grid {
-                /* The auto-fit rule already handles this, but we can be explicit */
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 2rem;
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
             }
 
             /* --- Process Section --- */
@@ -805,6 +965,8 @@
     </style>
 </head>
 <body>
+    
+
     
     <div class="background-container">
         <div class="background-image active" id="bg-for-hero-section"></div>
@@ -862,11 +1024,70 @@
     <section class="superpower-section content-section reveal" data-bg="bg-for-superpower-section">
         <h2 class="superpower-title">Unlock your superpower with Sleep</h2>
         <p class="superpower-subtitle">Sleep is your body's most powerful reset button</p>
-        <div class="superpower-interactive-area">
-            <div class="dashed-circle"></div>
-            <div class="central-content">
-                <img class="central-photo" src="01-Brain.png" alt="Superpower Image" />
-                <p class="central-description"></p>
+        <div class="superpower-grid">
+            <!-- Large Vertical Block (Span 1 column, 2 rows) -->
+            <div class="superpower-card large-card flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="01-Brain.png" alt="Brain & Cognitive Function" class="card-image">
+                        <h3 class="card-title">Brain & Cognitive Function</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <p class="card-description">During deep sleep, your brain consolidates memories, solves problems creatively, and resets emotional balance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top-Left Small Block -->
+            <div class="superpower-card flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="02-Physical.png" alt="Physical Recovery" class="card-image">
+                        <h3 class="card-title">Physical Recovery</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <p class="card-description">Sleep repairs muscles, strengthens immunity, and regulates metabolism.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top-Right Small Block -->
+            <div class="superpower-card flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="03-Chrnic-Dis.png" alt="Chronic Disease Prevention" class="card-image">
+                        <h3 class="card-title">Chronic Disease Prevention</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <p class="card-description">Quality sleep slashes risks of heart disease, diabetes, and stroke. It even helps DNA repair, reducing cancer risks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom-Left Small Block -->
+            <div class="superpower-card flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="04-Longetivty.png" alt="Longevity & Aging" class="card-image">
+                        <h3 class="card-title">Longevity & Aging</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <p class="card-description">Sleep is your anti-aging secret, it reduces the risk of neurodegenerative diseases.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom-Right Small Block -->
+            <div class="superpower-card flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="05-Performance.png" alt="Performance & Productivity" class="card-image">
+                        <h3 class="card-title">Performance & Productivity</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <p class="card-description">Leaders make better decisions and professionals solve problems faster. Sleep impacts reaction time and endurance.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -934,6 +1155,11 @@
             </div>
         </div>
     </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919028304422" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Contact us on WhatsApp">
+        <img src="whatsapp.png" alt="WhatsApp">
+    </a>
 
     <script>
         // Break lines after every 5-6 words for .visual-text
@@ -1059,101 +1285,24 @@
             }
 
             // --- Logic for Superpower Section ---
-            const benefits = [
-                { label: 'Brain & Cognitive Function', description: 'During deep sleep, your brain consolidates memories, solves problems creatively, and resets emotional balance. ' },
-                { label: 'Physical Recovery', description: 'Sleep repairs muscles, strengthens immunity, and regulates metabolism' },
-                { label: 'Chronic Disease Prevention', description: 'Quality sleep slashes risks of heart disease, diabetes, and stroke. It even helps DNA repair, reducing cancer risks.' },
-                { label: 'Longevity & Aging', description: 'Sleep is your anti-aging secret, it reduces the risk of neurodegenerative diseases.' },
-                { label: 'Performance & Productivity', description: 'Leaders make better decisions and professionals solve problems faster. Sleep impacts reaction time and endurance.' },
-                { label: 'Hormonal & Metabolic Regulation', description: 'Sleep balances insulin, cortisol, and hunger hormones.' }
-            ];
-            const superpowerImages = ['01-Brain.png', '02-Physical.png', '03-Chrnic-Dis.png', '04-Longetivty.png', '05-Performance.png', '06-Harmonal-Balance.png'];
+            // The flip cards are now handled purely with CSS hover effects
+            // No JavaScript needed for the basic functionality
             
-            const interactiveArea = document.querySelector('.superpower-interactive-area');
-            const superpowerImgEl = document.querySelector('.central-photo');
-            const centralDescriptionEl = document.querySelector('.central-description');
+            // Optional: Add some interactive enhancements
+            const flipCards = document.querySelectorAll('.flip-card');
             
-            let currentBenefitIndex = 0;
-            let superpowerInterval;
-
-            function updateSuperpowerContent(index, isManualClick = false) {
-                if (isManualClick && superpowerInterval) {
-                    clearInterval(superpowerInterval);
-                }
-                currentBenefitIndex = index;
-
-                if (superpowerImgEl) superpowerImgEl.src = superpowerImages[index];
-
-                centralDescriptionEl.style.opacity = 0;
-                setTimeout(() => {
-                    centralDescriptionEl.textContent = benefits[index].description;
-                    centralDescriptionEl.style.opacity = 1;
-                }, 250);
-
-                interactiveArea.querySelectorAll('.benefit-point').forEach((point, i) => point.classList.toggle('active', i === index));
-                interactiveArea.querySelectorAll('.benefit-label').forEach((label, i) => label.classList.toggle('active', i === index));
-                
-                if (isManualClick) {
-                   startSuperpowerAnimation(); // Restart animation
-                }
-            }
-
-            function startSuperpowerAnimation() {
-                superpowerInterval = setInterval(() => {
-                    const nextIndex = (currentBenefitIndex + 1) % benefits.length;
-                    updateSuperpowerContent(nextIndex);
-                }, 3000);
-            }
-
-            if (interactiveArea) {
-                const radiusPercent = 49;
-                const labelRadius = 67;
-                const angleStep = 360 / benefits.length;
-                const benefitPoints = [];
-                const benefitLabels = [];
-                
-                benefits.forEach((benefit, index) => {
-                    const angle = angleStep * index - 90;
-                    const angleRad = angle * Math.PI / 180;
-
-                    // Dot
-                    const x = 50 + radiusPercent * Math.cos(angleRad);
-                    const y = 50 + radiusPercent * Math.sin(angleRad);
-                    const point = document.createElement('div');
-                    point.className = 'benefit-point';
-                    point.style.left = `${x}%`;
-                    point.style.top = `${y}%`;
-                    const dot = document.createElement('div');
-                    dot.className = 'benefit-dot';
-                    point.appendChild(dot);
-
-                    // Label
-                    const labelX = 50 + labelRadius * Math.cos(angleRad);
-                    const labelY = 50 + labelRadius * Math.sin(angleRad);
-                    const label = document.createElement('div');
-                    label.className = 'benefit-label';
-                    label.textContent = benefit.label;
-                    label.style.left = `${labelX}%`;
-                    label.style.top = `${labelY}%`;
-
-                    // Simple hardcoded adjustments for label positions. A more robust solution would be a JS library for circular layouts.
-                     if (benefit.label === 'Chronic Disease Prevention') label.innerHTML = 'Chronic Disease<br>Prevention';
-                     else if (benefit.label === 'Performance & Productivity') label.innerHTML = 'Performance &<br>Productivity';
-                     else if (benefit.label === 'Hormonal & Metabolic Regulation') label.innerHTML = 'Hormonal &<br>Metabolic Regulation';
-                    
-                     // Example adjustment for a problematic label
-                     if (index === 5) { // Hormonal...
-                        label.style.top = `calc(${labelY}% + 10px)`;
-                     }
-
-                    interactiveArea.appendChild(point);
-                    interactiveArea.appendChild(label);
-                    dot.addEventListener('click', () => updateSuperpowerContent(index, true));
+            flipCards.forEach(card => {
+                // Add touch support for mobile devices
+                card.addEventListener('touchstart', function() {
+                    this.classList.add('touch-active');
                 });
                 
-                updateSuperpowerContent(0);
-                startSuperpowerAnimation();
-            }
+                card.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.classList.remove('touch-active');
+                    }, 700);
+                });
+            });
 
             // --- Logic for Scroll Animations ---
             const revealElements = document.querySelectorAll('.reveal');
@@ -1176,6 +1325,8 @@
                 footerObserver.observe(footer);
             }
         }); 
+        
+
     </script>
 </body>
 </html>
